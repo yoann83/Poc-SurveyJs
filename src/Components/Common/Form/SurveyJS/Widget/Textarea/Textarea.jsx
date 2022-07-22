@@ -1,36 +1,34 @@
 import React from "react";
-import * as Survey from "survey-react";
-import MenuItem from "@mui/material/MenuItem";
-import SelectField from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
+import TextareaAutosize from "@mui/base/TextareaAutosize";
 import NotListedLocationOutlinedIcon from "@mui/icons-material/NotListedLocationOutlined";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
-import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
-/* style Custom */
-import "./MultiSelect.scss";
+import IconButton from "@mui/material/IconButton";
+import { faIdCard } from "@fortawesome/free-solid-svg-icons/faIdCard";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export class SelectModel extends Survey.Question {
+import * as Survey from "survey-react";
+/* style Custom */
+import "./Textarea.scss";
+
+export class TextModel extends Survey.Question {
   //select type in json form to work
   getType() {
-    return "multiselectwidget";
+    return "textareawidget";
   }
 }
 
-export class MultiSelect extends Survey.SurveyElementBase {
+export class Textarea extends Survey.SurveyElementBase {
   constructor(props) {
     super(props);
     this.state = {
-      choice: "",
       anchorEl: null,
       open: false,
-      placement: "top-start",
-      personName: []
+      placement: "top-start"
     };
   }
   //get datas in json of SurveyJs
@@ -38,49 +36,38 @@ export class MultiSelect extends Survey.SurveyElementBase {
     return this.props.question;
   }
 
+  //create and customize the component
   render() {
     const handleClick = (newPlacement) => (e) => {
       this.setState({ anchorEl: e.currentTarget });
       this.setState({ open: !this.state.open });
     };
     const handleChangeValue = (e) => {
-      const {
-        target: { value }
-      } = e;
       this.question.setValueCore(e.target.value);
-      this.setState({ choice: e.target.value });
-      this.setState({
-        personName: typeof value === "string" ? value.split(",") : value
-      });
     };
 
     if (!this.question) return null;
     return (
-      <div className="multiselect-widget">
-        <div className="multiselect">
-          <FormControl required={this.question.isRequired} fullWidth>
-            <InputLabel>{this.question.title}</InputLabel>
-            <SelectField
-              fullWidth
-              multiple
-              name={this.question.name}
-              value={this.state.personName}
-              onChange={handleChangeValue}
-              renderValue={(selected) => (
-                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                  {selected.map((value) => (
-                    <Chip key={value} label={value} />
-                  ))}
-                </Box>
-              )}
-            >
-              {this.question.choices.map((c) => (
-                <MenuItem key={c} value={c}>
-                  {c}
-                </MenuItem>
-              ))}
-            </SelectField>
-          </FormControl>
+      <div className="Textarea-widget">
+        <div className="textarea">
+          {this.question.icon ? (
+            <div className="icons">
+              <IconButton className="icon-question">
+                <FontAwesomeIcon icon={faIdCard} />
+              </IconButton>
+            </div>
+          ) : null}
+          <TextareaAutosize
+            aria-label="maximum height"
+            name={this.question.name}
+            title={this.question.title}
+            placeholder={this.question.placeholder}
+            variant={this.question.variant}
+            onChange={handleChangeValue}
+          />
+          {/*
+              <pre>{JSON.stringify(this.question, null, 2)}</pre>
+            */}
           {this.question.help ? (
             <div className="icons">
               <Button onClick={handleClick("top-start")}>
@@ -106,12 +93,12 @@ export class MultiSelect extends Survey.SurveyElementBase {
                   </Fade>
                 )}
               </Popper>
+              <IconButton className="icon-question">
+                <FontAwesomeIcon icon={faEllipsisV} />
+              </IconButton>
             </div>
           ) : null}
         </div>
-        {/*
-        <pre>{JSON.stringify(this.question, null, 2)}</pre>
-        */}
       </div>
     );
   }
@@ -122,24 +109,27 @@ Add attributs.
 Warning : attributes with arrays must be filled
 */
 Survey.Serializer.addClass(
-  "multiselectwidget",
+  "textareawidget",
   [
     {
-      name: "choices"
+      name: "icon"
     },
     {
       name: "help"
+    },
+    {
+      name: "placeholder"
     }
   ],
   function () {
-    return new SelectModel("");
+    return new TextModel("");
   },
   "question"
 );
 
 Survey.ReactQuestionFactory.Instance.registerQuestion(
-  "multiselectwidget",
+  "textareawidget",
   (props) => {
-    return React.createElement(MultiSelect, props);
+    return React.createElement(Textarea, props);
   }
 );

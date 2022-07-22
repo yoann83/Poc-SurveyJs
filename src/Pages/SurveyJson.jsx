@@ -61,6 +61,18 @@ export const surveyJson = {
                 "Precise"
               ],
               isRequired: true
+            },
+            {
+              type: "textareawidget",
+              name: "textareawidget",
+              placeholder: "Maximum 4 rows",
+              title: "Text",
+              titleLocation: "hidden",
+              help: {
+                title: "The content of the ",
+                text: "Text textField help here..."
+              },
+              isRequired: true
             }
           ]
         }

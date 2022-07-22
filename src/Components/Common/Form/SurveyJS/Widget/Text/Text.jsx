@@ -49,7 +49,7 @@ export class Text extends Survey.SurveyElementBase {
     if (!this.question) return null;
     return (
       <div className="text-widget">
-        <div className="TextField">
+        <div className="text">
           {this.question.icon ? (
             <div className="icons">
               <IconButton className="icon-question">
