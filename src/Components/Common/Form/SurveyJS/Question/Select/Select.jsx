@@ -11,7 +11,7 @@ import Fade from "@mui/material/Fade";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
 /* style Overload */
-import "./select.scss";
+//import "./Select.scss";
 
 export default function Select(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -92,6 +92,6 @@ export default function Select(props) {
   );
 }
 /* only overload original type ("text", "dropdown" ...) and uncomment scss */
-ReactQuestionFactory.Instance.registerQuestion("dropdown", (props) => {
+ReactQuestionFactory.Instance.registerQuestion("dropdownOrigine", (props) => {
   return React.createElement(Select, props);
 });

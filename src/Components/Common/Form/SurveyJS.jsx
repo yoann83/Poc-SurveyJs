@@ -2,13 +2,13 @@ import React, { useCallback } from "react";
 import "survey-core/modern.min.css";
 import * as Survey from "survey-react";
 //Json for form Survey
-import { surveyJson } from "./surveyJson";
-import "../../Components";
-import "./form.scss";
+import { surveyJson } from "../../../Pages/SurveyJson";
+import "./SurveyJS/Index";
+import "./surveyJS.scss";
 
 Survey.StylesManager.applyTheme("modern");
 
-export default function FormTest() {
+export default function SurveyJS() {
   const surveyModel = new Survey.Model(surveyJson);
   surveyModel.focusFirstQuestionAutomatic = true;
 

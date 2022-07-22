@@ -1,30 +1,31 @@
 import React from "react";
-import * as Survey from "survey-react";
-import MenuItem from "@mui/material/MenuItem";
-import SelectField from "@mui/material/Select";
-import InputLabel from "@mui/material/InputLabel";
-import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
 import NotListedLocationOutlinedIcon from "@mui/icons-material/NotListedLocationOutlined";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
-/* style Custom */
-import "./select.scss";
+import IconButton from "@mui/material/IconButton";
+import { faIdCard } from "@fortawesome/free-solid-svg-icons/faIdCard";
+import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export class SelectModel extends Survey.Question {
+import * as Survey from "survey-react";
+/* style Custom */
+import "./Text.scss";
+
+export class TextModel extends Survey.Question {
   //select type in json form to work
   getType() {
-    return "selectwidget";
+    return "textwidget";
   }
 }
 
-export class Select extends Survey.SurveyElementBase {
+export class Text extends Survey.SurveyElementBase {
   constructor(props) {
     super(props);
     this.state = {
-      choice: "",
       anchorEl: null,
       open: false,
       placement: "top-start"
@@ -35,6 +36,7 @@ export class Select extends Survey.SurveyElementBase {
     return this.props.question;
   }
 
+  //create and customize the component
   render() {
     const handleClick = (newPlacement) => (e) => {
       this.setState({ anchorEl: e.currentTarget });
@@ -42,28 +44,31 @@ export class Select extends Survey.SurveyElementBase {
     };
     const handleChangeValue = (e) => {
       this.question.setValueCore(e.target.value);
-      this.setState({ choice: e.target.value });
     };
 
     if (!this.question) return null;
     return (
-      <div className="select-widget">
-        <div className="select">
-          <FormControl required={this.question.isRequired} fullWidth>
-            <InputLabel>{this.question.title}</InputLabel>
-            <SelectField
-              fullWidth
-              name={this.question.name}
-              value={this.state.choice}
-              onChange={handleChangeValue}
-            >
-              {this.question.choices.map((c) => (
-                <MenuItem key={c} value={c}>
-                  {c}
-                </MenuItem>
-              ))}
-            </SelectField>
-          </FormControl>
+      <div className="text-widget">
+        <div className="TextField">
+          {this.question.icon ? (
+            <div className="icons">
+              <IconButton className="icon-question">
+                <FontAwesomeIcon icon={faIdCard} />
+              </IconButton>
+            </div>
+          ) : null}
+          <TextField
+            fullWidth
+            name={this.question.name}
+            title={this.question.title}
+            label={this.question.title}
+            variant={this.question.variant}
+            onChange={handleChangeValue}
+            required={this.question.isRequired}
+          />
+          {/*
+              <pre>{JSON.stringify(this.question, null, 2)}</pre>
+            */}
           {this.question.help ? (
             <div className="icons">
               <Button onClick={handleClick("top-start")}>
@@ -89,12 +94,12 @@ export class Select extends Survey.SurveyElementBase {
                   </Fade>
                 )}
               </Popper>
+              <IconButton className="icon-question">
+                <FontAwesomeIcon icon={faEllipsisV} />
+              </IconButton>
             </div>
           ) : null}
         </div>
-        {/*
-        <pre>{JSON.stringify(this.question, null, 2)}</pre>
-        */}
       </div>
     );
   }
@@ -105,24 +110,21 @@ Add attributs.
 Warning : attributes with arrays must be filled
 */
 Survey.Serializer.addClass(
-  "selectwidget",
+  "textwidget",
   [
     {
-      name: "choices"
+      name: "icon"
     },
     {
       name: "help"
     }
   ],
   function () {
-    return new SelectModel("");
+    return new TextModel("");
   },
   "question"
 );
 
-Survey.ReactQuestionFactory.Instance.registerQuestion(
-  "selectwidget",
-  (props) => {
-    return React.createElement(Select, props);
-  }
-);
+Survey.ReactQuestionFactory.Instance.registerQuestion("textwidget", (props) => {
+  return React.createElement(Text, props);
+});

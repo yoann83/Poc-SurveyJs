@@ -17,7 +17,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 
 /* style Overload */
-import "./text.scss";
+import "./Text.scss";
 
 export default function Text(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);

@@ -13,7 +13,7 @@ import Popper from "@mui/material/Popper";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 /* style Custom */
-import "./select.scss";
+import "./MultiSelect.scss";
 
 export class SelectModel extends Survey.Question {
   //select type in json form to work
@@ -22,7 +22,7 @@ export class SelectModel extends Survey.Question {
   }
 }
 
-export class Select extends Survey.SurveyElementBase {
+export class MultiSelect extends Survey.SurveyElementBase {
   constructor(props) {
     super(props);
     this.state = {
@@ -140,6 +140,6 @@ Survey.Serializer.addClass(
 Survey.ReactQuestionFactory.Instance.registerQuestion(
   "multiselectwidget",
   (props) => {
-    return React.createElement(Select, props);
+    return React.createElement(MultiSelect, props);
   }
 );
