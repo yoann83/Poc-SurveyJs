@@ -65,8 +65,8 @@ export const surveyJson = {
             {
               type: "textareawidget",
               name: "textareawidget",
-              placeholder: "Maximum 4 rows",
-              title: "Text",
+              placeholder: "Comments",
+              title: "Comments",
               titleLocation: "hidden",
               help: {
                 title: "The content of the ",
@@ -119,6 +119,11 @@ export const surveyJson = {
               titleLocation: "hidden",
               isRequired: false,
               hideNumber: true
+            },
+            {
+              type: "comment",
+              name: "comments",
+              title: "Comments"
             },
             {
               type: "boolean",

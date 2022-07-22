@@ -58,9 +58,9 @@ export class Textarea extends Survey.SurveyElementBase {
             </div>
           ) : null}
           <TextareaAutosize
-            aria-label="maximum height"
+            minRows={2}
+            maxRows={8}
             name={this.question.name}
-            title={this.question.title}
             placeholder={this.question.placeholder}
             variant={this.question.variant}
             onChange={handleChangeValue}
