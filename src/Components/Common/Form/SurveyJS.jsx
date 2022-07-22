@@ -4,7 +4,7 @@ import * as Survey from "survey-react";
 //Json for form Survey
 import { surveyJson } from "../../../Pages/SurveyJson";
 import "./SurveyJS/Index";
-import "./surveyJS.scss";
+import "./SurveyJS.scss";
 
 Survey.StylesManager.applyTheme("modern");
 
