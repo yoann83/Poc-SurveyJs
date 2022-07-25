@@ -4,7 +4,6 @@ import MenuItem from "@mui/material/MenuItem";
 import SelectField from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import NotListedLocationOutlinedIcon from "@mui/icons-material/NotListedLocationOutlined";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
@@ -14,6 +13,18 @@ import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
 /* style Custom */
 import "./MultiSelect.scss";
+
+//box size for select
+const ITEM_HEIGHT = 35;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250
+    }
+  }
+};
 
 export class SelectModel extends Survey.Question {
   //select type in json form to work
@@ -58,6 +69,11 @@ export class MultiSelect extends Survey.SurveyElementBase {
     return (
       <div className="multiselect-widget">
         <div className="multiselect">
+          {this.question.icon?.left ? (
+            <div className="icons">
+              <i className={this.question.icon?.left} aria-hidden="true"></i>
+            </div>
+          ) : null}
           <FormControl required={this.question.isRequired} fullWidth>
             <InputLabel>{this.question.title}</InputLabel>
             <SelectField
@@ -73,6 +89,7 @@ export class MultiSelect extends Survey.SurveyElementBase {
                   ))}
                 </Box>
               )}
+              MenuProps={MenuProps}
             >
               {this.question.choices.map((c) => (
                 <MenuItem key={c} value={c}>
@@ -84,7 +101,7 @@ export class MultiSelect extends Survey.SurveyElementBase {
           {this.question.help ? (
             <div className="icons">
               <Button onClick={handleClick("top-start")}>
-                <NotListedLocationOutlinedIcon className="icon-question" />
+                <i className={this.question.help.icon} aria-hidden="true"></i>
               </Button>
               <Popper
                 open={this.state.open}
@@ -108,6 +125,11 @@ export class MultiSelect extends Survey.SurveyElementBase {
               </Popper>
             </div>
           ) : null}
+          {this.question.icon?.right ? (
+            <div className="icons">
+              <i className={this.question.icon?.right} aria-hidden="true"></i>
+            </div>
+          ) : null}
         </div>
         {/*
         <pre>{JSON.stringify(this.question, null, 2)}</pre>
@@ -117,13 +139,13 @@ export class MultiSelect extends Survey.SurveyElementBase {
   }
 }
 
-/* 
-Add attributs.
-Warning : attributes with arrays must be filled
-*/
+/* Add attributs. Warning : attributes with arrays must be filled */
 Survey.Serializer.addClass(
   "multiselectwidget",
   [
+    {
+      name: "icon"
+    },
     {
       name: "choices"
     },

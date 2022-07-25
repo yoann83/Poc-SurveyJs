@@ -21,10 +21,29 @@ export const surveyJson = {
               name: "textwidget",
               title: "Text",
               titleLocation: "hidden",
-              icon: true,
+              icon: {
+                left: "fa fa-id-card"
+              },
               help: {
                 title: "The content of the ",
-                text: "Text textField help here..."
+                text: "Text textField help here...",
+                icon: "fa fa-question-circle"
+              },
+              isRequired: true
+            },
+            {
+              type: "textwidget",
+              name: "textmultiwidget",
+              title: "Multiline",
+              multiline: true,
+              titleLocation: "hidden",
+              icon: {
+                right: "fa fa-id-card"
+              },
+              help: {
+                title: "The content of the ",
+                text: "Text textField help here...",
+                icon: "fa fa-question-circle"
               },
               isRequired: true
             },
@@ -33,9 +52,13 @@ export const surveyJson = {
               name: "selectwidget",
               title: "Select",
               titleLocation: "hidden",
+              icon: {
+                left: "fa fa-id-card"
+              },
               help: {
                 title: "The content of the ",
-                text: "Text textField help here..."
+                text: "Text textField help here...",
+                icon: "fa fa-question-circle"
               },
               choices: ["Designer", "Developer", "Manager", "Administration"],
               isRequired: true
@@ -45,9 +68,13 @@ export const surveyJson = {
               name: "multiselectwidget",
               title: "Multi-Select",
               titleLocation: "hidden",
+              icon: {
+                right: "fa fa-id-card"
+              },
               help: {
                 title: "The content of the ",
-                text: "Text textField help here..."
+                text: "Text textField help here...",
+                icon: "fa fa-question-circle"
               },
               choices: [
                 "Active",
@@ -68,9 +95,13 @@ export const surveyJson = {
               placeholder: "Comments",
               title: "Comments",
               titleLocation: "hidden",
+              icon: {
+                left: "fa fa-id-card"
+              },
               help: {
                 title: "The content of the ",
-                text: "Text textField help here..."
+                text: "Text textField help here...",
+                icon: "fa fa-question-circle"
               },
               isRequired: true
             }
@@ -103,6 +134,15 @@ export const surveyJson = {
               isRequired: true
             },
             {
+              type: "text",
+              name: "textmultiquestions",
+              title: "Multiline",
+              inputType: "comment",
+              titleLocation: "hidden",
+              multiline: true,
+              isRequired: true
+            },
+            {
               type: "dropdown",
               name: "selectquestions",
               title: "Select",
@@ -123,7 +163,10 @@ export const surveyJson = {
             {
               type: "comment",
               name: "comments",
-              title: "Comments"
+              title: "Comments",
+              inputType: "text",
+              titleLocation: "hidden",
+              hideNumber: true
             },
             {
               type: "boolean",
@@ -166,9 +209,12 @@ export const surveyJson = {
               inputType: "text",
               help: {
                 title: "Please, entrer your ",
-                text: "Text textField help here..."
+                text: "Text textField help here...",
+                icon: "fa fa-question-circle"
               },
-              icon: true,
+              icon: {
+                left: "fa fa-id-card"
+              },
               hideNumber: true,
               isRequired: true
             },

@@ -1,15 +1,10 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
-import NotListedLocationOutlinedIcon from "@mui/icons-material/NotListedLocationOutlined";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
-import IconButton from "@mui/material/IconButton";
-import { faIdCard } from "@fortawesome/free-solid-svg-icons/faIdCard";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as Survey from "survey-react";
 /* style Custom */
@@ -33,28 +28,26 @@ export class Text extends Survey.SurveyElementBase {
   }
   //get datas in json of SurveyJs
   get question() {
-    return this.props.question;
+    return this.props?.question;
   }
 
   //create and customize the component
   render() {
     const handleClick = (newPlacement) => (e) => {
       this.setState({ anchorEl: e.currentTarget });
-      this.setState({ open: !this.state.open });
+      this.setState({ open: !this.state?.open });
     };
     const handleChangeValue = (e) => {
-      this.question.setValueCore(e.target.value);
+      this.question.setValueCore(e.target?.value);
     };
 
     if (!this.question) return null;
     return (
       <div className="text-widget">
         <div className="text">
-          {this.question.icon ? (
+          {this.question.icon?.left ? (
             <div className="icons">
-              <IconButton className="icon-question">
-                <FontAwesomeIcon icon={faIdCard} />
-              </IconButton>
+              <i className={this.question.icon?.left} aria-hidden="true"></i>
             </div>
           ) : null}
           <TextField
@@ -62,22 +55,24 @@ export class Text extends Survey.SurveyElementBase {
             name={this.question.name}
             title={this.question.title}
             label={this.question.title}
+            multiline={this.question.multiline}
             variant={this.question.variant}
             onChange={handleChangeValue}
             required={this.question.isRequired}
           />
-          {/*
-              <pre>{JSON.stringify(this.question, null, 2)}</pre>
-            */}
-          {this.question.help ? (
+          {/*}
+          <pre>{JSON.stringify(this.question, null, 2)}</pre>
+          */}
+
+          {this.question?.help ? (
             <div className="icons">
               <Button onClick={handleClick("top-start")}>
-                <NotListedLocationOutlinedIcon className="icon-question" />
+                <i className={this.question.help.icon} aria-hidden="true"></i>
               </Button>
               <Popper
-                open={this.state.open}
-                anchorEl={this.state.anchorEl}
-                placement={this.state.placement}
+                open={this.state?.open}
+                anchorEl={this.state?.anchorEl}
+                placement={this.state?.placement}
                 transition
               >
                 {({ TransitionProps }) => (
@@ -94,9 +89,14 @@ export class Text extends Survey.SurveyElementBase {
                   </Fade>
                 )}
               </Popper>
-              <IconButton className="icon-question">
-                <FontAwesomeIcon icon={faEllipsisV} />
-              </IconButton>
+              {this.question.icon?.right ? (
+                <div className="icons">
+                  <i
+                    className={this.question.icon?.right}
+                    aria-hidden="true"
+                  ></i>
+                </div>
+              ) : null}
             </div>
           ) : null}
         </div>
@@ -105,10 +105,7 @@ export class Text extends Survey.SurveyElementBase {
   }
 }
 
-/* 
-Add attributs.
-Warning : attributes with arrays must be filled
-*/
+/* Add attributs. Warning : attributes with arrays must be filled */
 Survey.Serializer.addClass(
   "textwidget",
   [
@@ -117,6 +114,9 @@ Survey.Serializer.addClass(
     },
     {
       name: "help"
+    },
+    {
+      name: "multiline"
     }
   ],
   function () {

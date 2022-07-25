@@ -1,15 +1,10 @@
 import React from "react";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
-import NotListedLocationOutlinedIcon from "@mui/icons-material/NotListedLocationOutlined";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
 import Paper from "@mui/material/Paper";
 import Popper from "@mui/material/Popper";
-import IconButton from "@mui/material/IconButton";
-import { faIdCard } from "@fortawesome/free-solid-svg-icons/faIdCard";
-import { faEllipsisV } from "@fortawesome/free-solid-svg-icons/faEllipsisV";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as Survey from "survey-react";
 /* style Custom */
@@ -50,11 +45,9 @@ export class Textarea extends Survey.SurveyElementBase {
     return (
       <div className="Textarea-widget">
         <div className="textarea">
-          {this.question.icon ? (
+          {this.question.icon?.left ? (
             <div className="icons">
-              <IconButton className="icon-question">
-                <FontAwesomeIcon icon={faIdCard} />
-              </IconButton>
+              <i className={this.question.icon?.left} aria-hidden="true"></i>
             </div>
           ) : null}
           <TextareaAutosize
@@ -71,7 +64,7 @@ export class Textarea extends Survey.SurveyElementBase {
           {this.question.help ? (
             <div className="icons">
               <Button onClick={handleClick("top-start")}>
-                <NotListedLocationOutlinedIcon className="icon-question" />
+                <i className={this.question.help.icon} aria-hidden="true"></i>
               </Button>
               <Popper
                 open={this.state.open}
@@ -93,9 +86,11 @@ export class Textarea extends Survey.SurveyElementBase {
                   </Fade>
                 )}
               </Popper>
-              <IconButton className="icon-question">
-                <FontAwesomeIcon icon={faEllipsisV} />
-              </IconButton>
+            </div>
+          ) : null}
+          {this.question.icon?.right ? (
+            <div className="icons">
+              <i className={this.question.icon?.right} aria-hidden="true"></i>
             </div>
           ) : null}
         </div>
@@ -104,10 +99,7 @@ export class Textarea extends Survey.SurveyElementBase {
   }
 }
 
-/* 
-Add attributs.
-Warning : attributes with arrays must be filled
-*/
+/* Add attributs. Warning : attributes with arrays must be filled */
 Survey.Serializer.addClass(
   "textareawidget",
   [

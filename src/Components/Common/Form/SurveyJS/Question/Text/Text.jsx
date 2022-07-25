@@ -54,12 +54,7 @@ export default function Text(props) {
       ) : (
         /* construct (overloard) all components (ex : material ui) */
         <div className="text-question">
-          <div className="TextField">
-            <div className="icons-help">
-              <IconButton className="icon-question">
-                <FontAwesomeIcon icon={faIdCard} />
-              </IconButton>
-            </div>
+          <div className="text">
             {props.question.inputType === "date" ? (
               <LocalizationProvider dateAdapter={AdapterDateFns}>
                 <DesktopDatePicker
@@ -80,15 +75,21 @@ export default function Text(props) {
                 name={props.question?.name}
                 label={props.question?.title}
                 type={props.question?.inputType}
+                multiline={
+                  props.question?.inputType === "comment" ? true : false
+                }
                 variant="outlined"
                 onChange={handleChangeValue}
                 required={props.question.isRequired}
               />
             )}
             <div className="icons">
-              <Button onClick={handleClick("top-start")}>
-                <NotListedLocationOutlinedIcon className="icon-question" />
-              </Button>
+              <i
+                onClick={handleClick("top-start")}
+                className="fa fa-question-circle"
+                aria-hidden="true"
+              ></i>
+
               <Popper
                 open={open}
                 anchorEl={anchorEl}
@@ -110,9 +111,6 @@ export default function Text(props) {
                   </Fade>
                 )}
               </Popper>
-              <IconButton className="icon-question">
-                <FontAwesomeIcon icon={faEllipsisV} />
-              </IconButton>
             </div>
           </div>
         </div>
